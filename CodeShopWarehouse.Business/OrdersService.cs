@@ -17,9 +17,9 @@ namespace CodeShopWarehouse.Business
 
 	public class OrdersService : IOrdersService
 	{
-		private readonly OrdersRepo _repo;
+		private readonly IOrdersRepo _repo;
 
-		public OrdersService(OrdersRepo repo)
+		public OrdersService(IOrdersRepo repo)
 		{
 			_repo = repo;
 		}
@@ -44,7 +44,7 @@ namespace CodeShopWarehouse.Business
 		{
 			var dbOrder = await _repo.Get(id);
 			if (dbOrder == null) throw new Exception($"Order with id: {id} does not exist!");
-			if (dbOrder.Processed) throw new Exception("Cannot update an order that has already been processed!");
+			if (dbOrder.ProcessedAt != null) throw new Exception("Cannot update an order that has already been processed!");
 
 			await _repo.Put(id, order);
 		}
@@ -53,7 +53,7 @@ namespace CodeShopWarehouse.Business
 		{
 			var dbOrder = await _repo.Get(id);
 			if (dbOrder == null) throw new Exception($"Order with id: {id} does not exist!");
-			if (dbOrder.Processed) throw new Exception("Cannot delete an order that has already been processed!");
+			if (dbOrder.ProcessedAt != null) throw new Exception("Cannot delete an order that has already been processed!");
 
 			await _repo.Delete(id, order);
 		}

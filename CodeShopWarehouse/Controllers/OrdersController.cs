@@ -10,9 +10,9 @@ namespace CodeShopWarehouse.Web.Controllers
 	[ApiController]
 	public class OrdersController : ControllerBase
 	{
-		private readonly OrdersService _ordersService;
+		private readonly IOrdersService _ordersService;
 
-		public OrdersController(OrdersService ordersService)
+		public OrdersController(IOrdersService ordersService)
 		{
 			_ordersService = ordersService;
 		}

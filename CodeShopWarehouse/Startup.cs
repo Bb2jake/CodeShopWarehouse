@@ -24,7 +24,7 @@ namespace CodeShopWarehouse
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddDbContext<CodeShopWarehouseContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("CodeShopWarehouseContext")));
+					options.UseSqlite("Data Source=warehouse.db", b => b.MigrationsAssembly("CodeShopWarehouse")));
 
 			services.AddTransient<IOrdersService, OrdersService>();
 			services.AddTransient<IOrdersRepo, OrdersRepo>();
