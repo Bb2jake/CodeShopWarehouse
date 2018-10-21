@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CodeShopWarehouse.Data
@@ -10,6 +12,7 @@ namespace CodeShopWarehouse.Data
 	{
 		Task<IEnumerable<Order>> Get();
 		Task<Order> Get(int id);
+		Task<IEnumerable<Order>> GetByProductId(int productId);
 		Task Post(Order order);
 		Task Put(int id, Order order);
 		Task Delete(int id, Order order);
@@ -26,12 +29,17 @@ namespace CodeShopWarehouse.Data
 
 		public async Task<IEnumerable<Order>> Get()
 		{
-			return await _db.Orders.ToListAsync();
+			return await _db.Orders.Where(o => o.ProcessedAt == null).ToListAsync();
 		}
 
 		public async Task<Order> Get(int id)
 		{
-			return await _db.Orders.FindAsync(id);
+			return await _db.Orders.AsNoTracking().SingleOrDefaultAsync(o => o.Id == id);
+		}
+
+		public async Task<IEnumerable<Order>> GetByProductId(int productId)
+		{
+			return await _db.Orders.Where(o => o.ProductId == productId).ToListAsync();
 		}
 
 		public async Task Post(Order order)

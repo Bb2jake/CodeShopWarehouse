@@ -29,6 +29,12 @@ namespace CodeShopWarehouse.Web.Controllers
 			return new JsonResult(await _ordersService.Get(id));
 		}
 
+		[HttpGet("byProductId")]
+		public async Task<ActionResult<IEnumerable<Order>>> GetByProductId([FromQuery] int productId)
+		{
+			return new JsonResult(await _ordersService.GetByProductId(productId));
+		}
+
 		[HttpPost]
 		public async Task<ActionResult> Post([FromBody] Order order)
 		{
