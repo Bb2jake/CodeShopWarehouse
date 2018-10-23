@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using CodeShopWarehouse.Business;
 using CodeShopWarehouse.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeShopWarehouse.Web.Controllers
+namespace CodeShopWarehouse.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
@@ -36,9 +37,9 @@ namespace CodeShopWarehouse.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Post([FromBody] Order order)
+		public async Task<ActionResult> Post([FromBody] OrderUploadDto orderDto)
 		{
-			await _ordersService.Post(order);
+			await _ordersService.Post(orderDto);
 			return Ok();
 		}
 

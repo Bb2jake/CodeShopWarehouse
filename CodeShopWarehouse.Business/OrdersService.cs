@@ -11,7 +11,7 @@ namespace CodeShopWarehouse.Business
 		Task<IEnumerable<Order>> Get();
 		Task<Order> Get(int id);
 		Task<IEnumerable<Order>> GetByProductId(int productId);
-		Task Post(Order order);
+		Task Post(OrderUploadDto orderDto);
 		Task Put(int id, Order order);
 		Task Delete(int id, Order order);
 	}
@@ -40,9 +40,15 @@ namespace CodeShopWarehouse.Business
 			return await _repo.GetByProductId(productId);
 		}
 
-		// TODO: Change to uploadDto
-		public async Task Post(Order order)
+		public async Task Post(OrderUploadDto orderDto)
 		{
+			var order = new Order
+			{
+				CreatedAt = DateTimeOffset.Now,
+				ProductId = orderDto.ProductId,
+				Quantity = orderDto.Quantity
+			};
+
 			await _repo.Post(order);
 		}
 

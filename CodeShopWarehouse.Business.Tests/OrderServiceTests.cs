@@ -22,7 +22,8 @@ namespace CodeShopWarehouse.Business.Tests
 				Id = rnd.Next(100000),
 				ProcessedAt = processed ? (DateTimeOffset?)DateTimeOffset.Now : null,
 				CreatedAt = DateTimeOffset.Now,
-				ProductId = productId ?? rnd.Next(100000)
+				ProductId = productId ?? rnd.Next(100000),
+				Quantity = rnd.Next(100)
 			};
 		}
 

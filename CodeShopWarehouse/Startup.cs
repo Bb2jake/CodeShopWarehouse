@@ -23,6 +23,8 @@ namespace CodeShopWarehouse
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+			services.AddCors();
+
 			services.AddDbContext<CodeShopWarehouseContext>(options =>
 					options.UseSqlite("Data Source=warehouse.db", b => b.MigrationsAssembly("CodeShopWarehouse")));
 
@@ -41,6 +43,12 @@ namespace CodeShopWarehouse
 			{
 				app.UseHsts();
 			}
+
+			app.UseCors(builder =>
+				builder.AllowAnyOrigin()
+					.AllowAnyHeader()
+					.AllowAnyMethod()
+			);
 
 			app.UseHttpsRedirection();
 			app.UseMvc();
