@@ -10,7 +10,6 @@ namespace CodeShopWarehouse.Business
 	{
 		Task<IEnumerable<Order>> Get();
 		Task<Order> Get(int id);
-		Task<IEnumerable<Order>> GetByProductId(int productId);
 		Task Post(OrderUploadDto orderDto);
 		Task Put(int id, Order order);
 		Task Delete(int id, Order order);
@@ -33,11 +32,6 @@ namespace CodeShopWarehouse.Business
 		public async Task<Order> Get(int id)
 		{
 			return await _repo.Get(id);
-		}
-
-		public async Task<IEnumerable<Order>> GetByProductId(int productId)
-		{
-			return await _repo.GetByProductId(productId);
 		}
 
 		public async Task Post(OrderUploadDto orderDto)
